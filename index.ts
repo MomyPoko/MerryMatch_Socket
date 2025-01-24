@@ -9,14 +9,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: process.env.FRONTEND_URL || "*", credentials: true }));
 
 const server = http.createServer(app);
 
-console.log("Allowed Origins:", process.env.FRONTEND_URL);
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.FRONTEND_URL || "*",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -68,8 +67,12 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get("/test", (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   res.json("Welcome to the Socket.IO server!");
+});
+
+app.get("/health", (req: Request, res: Response) => {
+  res.status(200).json({ status: "ok" });
 });
 
 server.listen(port, () => {
