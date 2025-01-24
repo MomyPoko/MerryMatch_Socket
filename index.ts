@@ -20,6 +20,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
     credentials: true,
   },
+  transports: ["websocket", "polling"],
 });
 
 declare global {
@@ -68,8 +69,8 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get("/test", (req: Request, res: Response) => {
-  res.json("Server API is working");
+app.get("/", (req: Request, res: Response) => {
+  res.json("Welcome to the Socket.IO server!");
 });
 
 server.listen(port, () => {
