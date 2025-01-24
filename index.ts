@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/test", (req: Request, res: Response) => {
   res.json("Welcome to the Socket.IO server!");
 });
 
