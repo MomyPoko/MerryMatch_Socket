@@ -13,6 +13,7 @@ app.use(cors({ origin: "*" }));
 
 const server = http.createServer(app);
 
+console.log("Allowed Origins:", process.env.FRONTEND_URL);
 const io = new Server(server, {
   cors: {
     origin: process.env.FRONTEND_URL,
